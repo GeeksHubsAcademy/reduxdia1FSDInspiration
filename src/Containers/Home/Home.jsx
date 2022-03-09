@@ -2,13 +2,15 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import { connect } from 'react-redux';
+import { MOVIE_DETAIL } from '../../redux/types';
+import {raiz} from '../../utiles';
 import './Home.css';
 
-const Home = () => {
+const Home = (props) => {
 
     const [films, setFilms] = useState([]);
-    let poster = "https://image.tmdb.org/t/p/w185";
+    let navigate = useNavigate();
 
     useEffect(()=>{
         //No es correcto realizar el try catch en el useEffect
@@ -46,7 +48,14 @@ const Home = () => {
     };
 
     const escogePelicula = (pelicula) => {
+        
         console.log(pelicula);
+        //Guardamos la pelicula escogida en redux
+        props.dispatch({type:MOVIE_DETAIL, payload: pelicula});
+
+
+        //Redirigimos a movieDetail con navigate
+        navigate("/moviedetail");
     }
  
     if(films[0]?.id != undefined){
@@ -64,7 +73,7 @@ const Home = () => {
                             //si le hacemos propiedad onclick y pasamos el elemento como argumento,
                             //a esa funcion le va a llegar el objeto que hayamos clickado entero
                             <div key={pelicula.id} onClick={()=>escogePelicula(pelicula)}>
-                                <img src={poster + pelicula.poster_path} alt={pelicula.title}/>
+                                <img src={raiz + pelicula.poster_path} alt={pelicula.title}/>
                             </div>
                         )
                     })
@@ -83,4 +92,4 @@ const Home = () => {
     }
 }
 
-export default Home;
+export default connect()(Home);
