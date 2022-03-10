@@ -6,11 +6,14 @@ import { connect } from 'react-redux';
 import { MOVIE_DETAIL } from '../../redux/types';
 import {raiz} from '../../utiles';
 import './Home.css';
+import { Card } from 'antd';
+import 'antd/dist/antd.css';
 
 const Home = (props) => {
 
     const [films, setFilms] = useState([]);
     let navigate = useNavigate();
+    const { Meta } = Card;
 
     useEffect(()=>{
         //No es correcto realizar el try catch en el useEffect
@@ -72,9 +75,11 @@ const Home = (props) => {
                             //Al mapear, cada elemento que se itera del array (en este caso pelicula es ese elemento),
                             //si le hacemos propiedad onclick y pasamos el elemento como argumento,
                             //a esa funcion le va a llegar el objeto que hayamos clickado entero
-                            <div key={pelicula.id} onClick={()=>escogePelicula(pelicula)}>
-                                <img src={raiz + pelicula.poster_path} alt={pelicula.title}/>
+                            <div className="cardPelicula" key={pelicula.id} onClick={()=>escogePelicula(pelicula)}>
+                                <img className="fotoCard" src={raiz + pelicula.poster_path} alt={pelicula.title}/>
+                                <p>{pelicula.overview}</p>
                             </div>
+                            
                         )
                     })
                 }
