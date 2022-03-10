@@ -10,6 +10,7 @@ import Login from './Containers/Login/Login';
 import Register from './Containers/Register/Register';
 import Profile from './Containers/Profile/Profile';
 import MovieDetail from './Containers/MovieDetail/MovieDetail';
+import SearchResults from './Containers/SearchResults/SearchResults';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/register" element={<Register/>}/>
           <Route path="/profile" element={<Profile/>}/>
           <Route path="/moviedetail" element={<MovieDetail/>}/>
+          <Route path="/searchresults" element={<SearchResults/>}/>
 
         </Routes>
 
